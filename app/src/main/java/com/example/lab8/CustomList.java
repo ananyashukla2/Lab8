@@ -52,7 +52,7 @@ public class CustomList extends ArrayAdapter<City> {
 
     // CustomList.java
     public void addCity(City city){
-        // cities.add(city);
+        cities.add(city);
     }
 
     public CustomList MockCityList(){
