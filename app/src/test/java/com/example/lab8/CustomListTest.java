@@ -27,34 +27,30 @@ public class CustomListTest {
     }
 
     @Test
-    public void testHasCity_True() {
-        list.addCity(new City("Edmonton", "AB"));
-        assertTrue(list.hasCity(new City("Edmonton", "AB")), "List should contain Edmonton, AB");
+    public void testHasCity() {
+        CustomList list = MockCityList();
+        list.addCity(new City("Saskatoon", "SK"));
+        assertTrue(list.hasCity(new City("Saskatoon", "SK")));
+        assertFalse(list.hasCity(new City("Regina", "SK")));
     }
 
     @Test
-    public void testHasCity_False() {
-        assertFalse(list.hasCity(new City("Calgary", "AB")), "List should not contain Calgary, AB");
+    public void testDeleteCity() {
+        CustomList list = MockCityList();
+        City cityToAdd = new City("Saskatoon", "SK");
+        list.addCity(cityToAdd);
+        assertTrue(list.hasCity(cityToAdd));
+        list.deleteCity(cityToAdd);
+        assertFalse(list.hasCity(cityToAdd));
     }
 
-    @Test
-    public void testDeleteCity_ExistingCity() {
-        City city = new City("Edmonton", "AB");
-        list.addCity(city);
-        assertTrue(list.deleteCity(city), "Deletion should return true for existing city");
-        assertFalse(list.hasCity(city), "List should not contain Edmonton, AB after deletion");
-    }
-
-    @Test
-    public void testDeleteCity_NonExistingCity() {
-        assertFalse(list.deleteCity(new City("Calgary", "AB")), "Deletion should return false for non-existing city");
-    }
 
     @Test
     public void testCountCities() {
-        assertEquals(0, list.getCount(), "Count should return the correct number of cities in the list initially");
+        CustomList list = MockCityList();
+        assertEquals(0, list.getCount());
         list.addCity(new City("Saskatoon", "SK"));
-        assertEquals(1, list.getCount(), "Count should reflect the number of cities after adding one");
+        assertEquals(1, list.getCount());
     }
 }
 

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class CustomList extends ArrayAdapter<City> {
 
@@ -30,8 +31,8 @@ public class CustomList extends ArrayAdapter<City> {
 
         View view = convertView;
 
-        if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.content, parent,false);
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.content, parent, false);
         }
 
         City city = cities.get(position);
@@ -46,30 +47,36 @@ public class CustomList extends ArrayAdapter<City> {
 
     }
 
-    public int getCount(){
+    public int getCount() {
         return cities.size();
     }
 
-    public void addCity(City city){
+    public void addCity(City city) {
         cities.add(city);
     }
 
-    public CustomList MockCityList(){
+    public CustomList MockCityList() {
         list = new CustomList(null, new ArrayList<>());
         return list;
     }
 
     public boolean hasCity(City city) {
         for (City c : cities) {
-            if (c.equals(city)) {
+            if (c.getCityName().equals(city.getCityName()) && c.getProvinceName().equals(city.getProvinceName())) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean deleteCity(City city) {
-        return cities.remove(city);
+    public void deleteCity(City city) {
+        Iterator<City> iterator = cities.iterator();
+        while (iterator.hasNext()) {
+            City c = iterator.next();
+            if (c.getCityName().equals(city.getCityName()) && c.getProvinceName().equals(city.getProvinceName())) {
+                iterator.remove();
+                break;
+            }
+        }
     }
-
 }
